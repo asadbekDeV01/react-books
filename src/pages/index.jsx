@@ -1,23 +1,40 @@
+import { data } from "autoprefixer";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Layout from "../Layout";
 
- export default function Home() {
-    return ( 
-        <div>
-            <header >
-                <div className="header_inner conteiner">
-                    <div>
-                        <Link to="/">articuleuz</Link>
-                        <nav>
-                            <Link to="/">iqtisodiyot</Link>
-                            <Link to="/">Talim</Link>
-                            <Link to="/">qurilish</Link>
-                            <Link to="/">muhim</Link>
-                        </nav>
-                    </div>
-                    <div></div>
-                </div>
-            </header>
-        </div>
-     );
+export default function Home() {
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        setdata(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  return (
+        <Layout>
+        <section>
+          <div className="grid conteiner">
+          {data.map((user) => {
+            return <User key={user.id} user={user} />;
+          })}
+          </div>
+        </section>
+        </Layout>
+      
+  );
 }
 
+const User = ({ user }) => {
+    return (
+        <div>
+            <p>{user.name}</p>
+            <p>{user.username}</p>
+        </div>
+    );
+};

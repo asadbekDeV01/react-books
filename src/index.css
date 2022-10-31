@@ -20,3 +20,15 @@ a{
 header{
     background-color: #fff;
 }
+.grid{
+    display: grid;
+    grid-template-columns: repeat();
+}
+#body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main{
+    flex: 1 1 auto;
+}
